@@ -1,0 +1,77 @@
+WebSite architecture:
+
+
+rest apis:
+
+/api/tags
+	?getAll=true
+	?rule=blender,3dmax
+
+/api/article
+	?id=dalf-21rl%20aard
+
+
+/api/search
+	?rulebytag=blender
+	?s=Blender toturial
+	?author=HPCSLAG
+
+/api/getPopular
+	?sort=ASM,DSM (default)
+	?getRange=1 (limit:50)
+
+/api/getAuthorList
+
+post:
+/api/subscribe
+	- email
+
+get:
+/api/cancel_subscribe
+
+
+
+----------------------------------
+pages:
+ - index
+ - article
+ - search
+ - tag
+ 
+ - login (login `ip` need to setup)
+
+dashboard index:
+	
+	- manage your article
+		- update article
+		- create article
+
+	- edit your account
+
+---------------------------------
+database schema:
+
+ - user:
+{
+	username (lowercase string [32]),
+	password (string [32]),
+	nickname (string [25]),
+	introduce (string [255])
+}
+
+ - article:
+{
+	title,
+	content_html,
+	hash_tags,
+	author,
+	date,
+	last_update,
+	read_count,
+	like_count, (add by ip, if this ip has been liked, just can used!, lock 2 days),
+	article_id,
+	feature_banner
+}
+
+---------------------
+feature

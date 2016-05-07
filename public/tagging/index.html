@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<title>taggingJS</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="//code.jquery.com/jquery-latest.min.js"></script>
+
+	<link href="screen.css" rel="stylesheet">
+	<link href="tag-basic-style.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+		<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+
+	<div class="container">
+		<!-- The example Code -->
+		<div class="example-wrapper">
+			<div class="tags well">
+				<label for="tag" class="control-label">Tag</label>
+				<div class="tagging-js blockquote-success" data-tags-input-name="taggone" id="tagBox">preexisting-tag, another-tag</div>
+				<p class="help-block">Press Enter, Comma or Spacebar to create a new tag, Backspace or Delete to remove the last one.</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Don't forget to include taggingJS! -->
+	<script src="tagging.js"></script>
+
+</body>
+</html>
