@@ -6,17 +6,23 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 
-global.mongodb_path = "192.168.0.100:27017";
+//init custom value
+var configReader = require('./library/configReader');
+global.webConf = configReader();
+
+//in this project, mongodb connection can't support cert or auth connetion.
+//Suggest you using local database.
+if(global.webConf.mongodb.requirePassword){
+    global.mongodb_path = global.webConf.mongodb.username + global.webConf.mongodb.password + global.webConf.mongodb.host;
+}else{
+    global.mongodb_path = global.webConf.mongodb.host;
+}
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
 
 var app = express();
-
-//init custom value
-var configReader = require('./library/configReader');
-global.webConf = configReader();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -62,10 +68,30 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+app.use(function(err, req, res, next) {
+   if (err instanceof NotFound) {
+       res.send("<pre>404 NOT FOUND</pre>");
+   } else {
+       console.log("This is 500 Server Error, but webpage will send back 404.");
+       res.send("<pre>404 NOT FOUND</pre>");
+   }
+});
+
+function NotFound() {
+   this.name = "NotFound";
+   Error.call(this, msg);
+   Error.captureStackTrace(this, arguments.callee);
+}
+
+// below all route handlers
+// If all fails, hit em with the 404
+app.all('*', function(req, res){
+   throw new NotFound;
+});
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+/*if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -83,7 +109,7 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
-});
+});*/
 
 
 module.exports = app;

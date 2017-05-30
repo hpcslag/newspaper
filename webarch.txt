@@ -10,7 +10,6 @@ rest apis:
 /api/article
 	?id=dalf-21rl%20aard
 
-
 /api/search
 	?rulebytag=blender
 	?s=Blender toturial
@@ -34,14 +33,19 @@ get:
 ----------------------------------
 pages:
  - index
+ 	- explore?q=ds&s=10
  - article
+ 	- article?id=xxxxxxxx
  - search
+ 	- api or explore?
+
  - tag
  
  - login (login `ip` need to setup)
 
-dashboard index:
-	
+dashboard index (administrator):
+	`id is account id`
+
 	- manage your article
 		- update article
 		- create article
@@ -75,3 +79,6 @@ database schema:
 
 ---------------------
 feature
+
+
+

@@ -6,7 +6,7 @@ var path = require('path');
 var mongojs = require("mongojs");
 var db = mongojs(global.mongodb_path+'/newspaper', ['articles']);
 
-/* Admin Function */
+/* REST API: Admin Function (Post Article)*/
 router.post('/article/post_article',function(req,res,next){
 	if(req.body.content != null && req.body.content.length > 20){//security
 
@@ -43,17 +43,91 @@ router.post('/article/post_article',function(req,res,next){
 });
 
 router.post('/article/upload_image', function(req, res, next) {
-  var originname = req.file.originalname;
-  var l = originname.split('.');
-  var ptn = l[l.length-1];
+	var originname = req.file.originalname;
+	var l = originname.split('.');
+	var ptn = l[l.length-1];
 
-  var current_file_name = req.file.filename + '.' + ptn;
-  fs.rename(req.file.path, path.join(req.file.destination, current_file_name) , function(err) {
-    if ( err ) console.log('ERROR: ' + err);
-  });
+	var current_file_name = req.file.filename + '.' + ptn;
+	fs.rename(req.file.path, path.join(req.file.destination, current_file_name) , function(err) {
+	if ( err ) console.log('ERROR: ' + err);
+	});
 
-  res.send(JSON.stringify({link: path.join('/uploads/',current_file_name)}));
-  console.log(JSON.stringify(req.params));
+	res.send(JSON.stringify({link: path.join('/uploads/',current_file_name)}));
+	console.log(JSON.stringify(req.params));
 });
+
+/* REST API: Admin Function (Create New Article)*/
+
+/* REST API: Admin Function (Update Articles)*/
+
+/* REST API: Admin Function (Delete Articles)*/
+router.post('/article/delete',function(req,res,next){
+	console.log("here1");
+	var _id = req.body.id;
+	console.log(_id);
+	if(_id != null){
+		db.articles.remove({_id:mongojs.ObjectId(_id)},function(err){
+			console.log("here");
+			if(!err){
+				res.status(200);
+				res.send("Deleted!");
+			}else{
+				res.status(500);
+				res.send("Not Work!");
+			}
+			
+		});
+	}else{
+		res.send("<pre>404 NOT FOUND</pre>");
+	}
+});
+
+/* PAGE: Admin Dashboard (Login Page)*/
+
+/* PAGE: Admin Dashboard (Show Indexes)*/
+router.get('/dashboard', function(req, res, next) {
+	var per_page_data_length = 10;
+	var start_length = parseInt(req.query.s); //?s=xx
+	var showAllAuthor = req.query.a; //&a=true
+
+	//get user session
+
+	var query_rules = {author:"hpcslag"};
+	if(isNaN(start_length)){
+		start_length = 0;
+	}
+
+	if(!!showAllAuthor){
+		query_rules = {};
+	}
+
+	db.articles.find(query_rules).sort({$natural:-1}).limit(per_page_data_length).skip(start_length,function(err,doc){
+		db.articles.count(query_rules,function(err1,max_len){	
+			db.articles.aggregate([ {$match:query_rules},{$group: { _id: null, liked: { $sum: "$liked" }, view: { $sum: "$view" } } } ],function(err2, doc2){
+				var rendering_data = {data:doc, max_length:max_len,per_length:per_page_data_length ,now_end_length: start_length+per_page_data_length, view: 0, liked: 0};
+				if(doc2[0] != null){
+					rendering_data["view"] = doc2[0].view;
+					rendering_data["liked"] = doc2[0].liked;
+				}
+				res.render('admin-dashboard',rendering_data);
+			});
+		});
+	});
+	
+});
+
+/* PAGE: Admin Function (Get Article by _id)*/
+router.get('/article/update', function(req, res, next) {
+	var id = req.query.id;
+	if(id!=null){
+		db.articles.findOne({_id: mongojs.ObjectId(id)},function(err,doc){
+			res.render('admin-update',{data:doc});
+		});
+	}else{
+		res.status(404);
+		res.send("<pre>404 NOT FOUND</pre>");
+	}
+});
+
 
 module.exports = router;

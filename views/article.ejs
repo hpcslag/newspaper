@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
+  <meta name="google" value="notranslate">
   <!-- Site Properties -->
   <title><%= data.title %></title>
   <!-- Include Font Awesome. -->
@@ -199,23 +199,6 @@
 </head>
 <body>
 
-<!-- Following Menu -->
-<div class="ui large top fixed hidden menu">
-  <div class="ui container">
-    <a class="active item">Home</a>
-    <a class="item">Work</a>
-    <a class="item">Company</a>
-    <a class="item">Careers</a>
-    <div class="right menu">
-      <div class="item">
-        <a class="ui button">Log in</a>
-      </div>
-      <div class="item">
-        <a class="ui primary button">Sign Up</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Sidebar Menu -->
 <div class="ui vertical inverted sidebar menu">
@@ -245,10 +228,11 @@
         <a class="toc item">
           <i class="fa fa-bars" aria-hidden="true"></i>
         </a>
-        <a class="active item">Home</a>
-        <a class="item">瀏覽</a>
-        <a class="item">HashTag</a>
-        <div class="right item">
+        <a class="active item" href="/">Home</a>
+        <a class="item" href="/explore">瀏覽</a>
+        <a class="item" href="/hashtag">HashTag</a>
+        <div class="right item" style=" /*too high*/ position: relative;
+    top: 15px;">
         	<div class="ui search">
 			  <div class="ui left icon input">
 			    <input class="prompt" type="text" placeholder="搜尋文章">
@@ -260,7 +244,7 @@
       </div>
     </div>
 
-    <div class="ui text container">
+    <div class="ui text container" style=" margin-bottom: 30px; ">
       <h1 class="ui inverted header">
         <%= data.title %>
       </h1>

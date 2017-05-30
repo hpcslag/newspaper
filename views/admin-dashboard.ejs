@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="google" value="notranslate">
+  <!-- Site Properties -->
+  <title>Admin Dashboard</title>
+  <!-- Include Font Awesome. -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/components/site.css">
+
+  <link rel="stylesheet" type="text/css" href="/components/container.css">
+  <link rel="stylesheet" type="text/css" href="/components/grid.css">
+  <link rel="stylesheet" type="text/css" href="/components/header.css">
+  <link rel="stylesheet" type="text/css" href="/components/image.css">
+  <link rel="stylesheet" type="text/css" href="/components/menu.css">
+
+  <link rel="stylesheet" type="text/css" href="/components/divider.css">
+  <link rel="stylesheet" type="text/css" href="/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="/components/segment.css">
+  <link rel="stylesheet" type="text/css" href="/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/components/list.css">
+  <link rel="stylesheet" type="text/css" href="/components/label.css">
+  <link rel="stylesheet" type="text/css" href="/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/components/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/components/statistic.css">
+  <link rel="stylesheet" type="text/css" href="/components/table.css">
+
+
+  <style type="text/css">
+
+    .hidden.menu {
+      display: none;
+    }
+
+    .masthead.segment {
+      min-height: 700px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+
+    .feature-field{
+        padding-top: 30px;
+        padding-bottom: 25px;
+    }
+
+    .articles{
+        display: inline-flex;
+        height: 9em;
+        width: 100%;
+        margin-bottom: 30px;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 3px #ddd;
+        border-radius: 5px;
+    }
+
+    .articles img{
+        height: 100%;
+        border-radius: 5px 0px 0px 5px;
+        -webkit-filter: blur(2px);
+        filter: blur(2px);
+        z-index: -5;
+    }
+
+    .articles>span{
+        position: absolute;
+        background: #5ea913;
+        /* left: 0px; */
+        margin-top: 15px;
+        padding: 5px;
+        color: white;
+    }
+
+    .description{
+        margin-top: 1em;
+    }
+
+    .description p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 22em;
+    }
+
+    @media only screen and (max-width: 990px) {
+        .articles{
+            width: 135%;
+        }
+
+        .articles img,.articles>span {
+            display: none;
+        }
+
+    }
+  </style>
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/components/visibility.js"></script>
+  <script src="/components/sidebar.js"></script>
+  <script src="/components/transition.js"></script>
+  <script>
+  $(document)
+    .ready(function() {
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        })
+      ;
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+
+    })
+  ;
+  </script>
+</head>
+<body>
+
+
+<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <a class="item">Work</a>
+  <a class="item">Company</a>
+  <a class="item">Careers</a>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+</div>
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  
+  <div class="ui container" style=" padding-top: 50px; word-break: break-all; ">
+    <h2 class="ui dividing header">管理員儀表板 - newspaper</h2>
+  </div>
+
+  <div class="ui grid container" style="
+    padding-bottom: 50px;
+    padding-top: 50px;
+    word-break: break-all;">
+
+	<div class="ui secondary vertical menu">
+        <a class="active item" href="/admin/dashboard">
+            <i class="newspaper icon"></i>
+            文章管理
+        </a>
+        <a class="item">
+            <i class="user icon"></i>
+            設定
+        </a>
+        <a class="item">
+            <i class="sign out icon"></i>
+            登出
+        </a>
+    </div>
+
+    <% 
+        function Comma(Num) { //function to add commas to textboxes
+            Num += '';
+            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+            x = Num.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1))
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            return x1 + x2;
+        }
+
+        var articles_length = max_length;
+        var articles_views = view;
+        var articles_liked = liked;
+    %>
+
+    <div class="ui twelve wide column">
+        <div class="ui statistics">
+            <div class="statistic brown">
+                <div class="value">
+                <i class="book icon"></i> <%= articles_length %>
+                </div>
+                <div class="label">
+                發佈文章數
+                </div>
+            </div>
+            <div class="statistic green">
+                <div class="value">
+                <%= Comma(articles_views) %>
+                </div>
+                <div class="label">
+                文章總瀏覽數
+                </div>
+            </div>
+            <div class="statistic red">
+                <div class="value">
+                <i class="heart icon"></i> <%= articles_liked %>
+                </div>
+                <div class="label">
+                獲得其他作者推薦數
+                </div>
+            </div>
+        </div>
+        <div class="feature-field">
+            <button class="ui blue button"><i class="write icon"></i>新增一篇文章</button>
+        </div>
+        
+        <div class="ui divided items">
+
+            <% if(data.length != 0){ %>
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>文章標題</th>
+                        <th>日期</th>
+                        <th>刪除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0;i<data.length;i++){ 
+                        var art = data[i];    
+                    %>
+                    <tr>
+                        <td><a href="/admin/article/update?id=<%= art._id %>"><%= art.title %></a></td>
+                        <td class="collapsing"><%= art.date.toLocaleString() %></td>
+                        <td class="right aligned collapsing"><button class="mini ui red button" onclick="deleteById('<%= art._id %>')">Delete</button></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+                <tfoot>
+                    <tr><th colspan="3">
+                    <div class="ui right floated pagination menu">
+                        <% 
+                            var max_page = Math.ceil(max_length / per_length);
+                            var now_page = Math.ceil(now_end_length / per_length);
+                            var query_page_count = 1;
+
+                            if(now_page < 4) { 
+                                query_page_count = 3;
+                            }else{
+                                query_page_count = now_page;
+                            }
+
+                            if(max_page > 5 && (max_page - now_page) < 2){
+                                query_page_count = max_page - 2;
+                            }
+                        %>
+
+                        <!-- 1 .. -->
+                        <% if(now_page > 3 && max_page > 5 && max_page != 4){ %>
+                            <a class="item <%= activeClass %> page-number">
+                                1
+                            </a>
+                        <% } %>
+                        <% if(now_page > 4 && max_page > 5){ %>
+                            <div class="disabled item">
+                                ...
+                            </div>
+                        <% } %>
+
+
+                        <!-- 345 -->
+                        <% 
+                            var start_from = query_page_count-2;
+                            var end_to = query_page_count+2;
+                            
+                            if((max_page - now_page) < 2){
+                                start_from = max_page - 4;
+                                end_to = max_page;
+                            }
+
+                            if(max_page < 5){
+                                start_from = 1;
+                                end_to = max_page;
+                            }
+
+
+                            for(var k = start_from;k<=end_to;k++){ 
+                                var activeClass = "";
+                                if(now_page == k){
+                                    activeClass = "active";
+                                }
+                            %>
+                            <a class="item <%= activeClass %> page-number">
+                                <%= k %>
+                            </a>
+                        <% } %>
+
+
+
+
+                        <!-- ..last -->
+                        <% if((max_page - now_page) > 3 && max_page > 5){ %>
+                            <div class="disabled item">
+                                ...
+                            </div>
+                        <% } %>
+                        <% if((max_page - now_page) > 2 && max_page > 5 && max_page != 4){ %>
+                            <a class="item <%= activeClass %> page-number">
+                                <%= max_page %>
+                            </a>
+                        <% } %>
+
+                    </div>
+                    </th>
+                </tr></tfoot>
+            </table>
+            <% }else{ %>
+                <h2 style=" color: #a0a0a0; padding-top: 25px; padding-bottom: 30px; ">目前還沒有發表任何文章</h2>
+            <% } %>
+
+        </div>
+    </div>
+
+    
+  </div>
+
+
+  <div class="ui black inverted vertical footer segment">
+  	<div class="ui center aligned container">
+    	<div class="ui horizontal inverted small divided link list">
+    		<h6>system open source - License MIT.</h6>
+      		<h5>2016 立於和春科技大學資訊工程系 J605B 人機互動實驗室</h5>
+      		<h5>WebDesign By MacTaylor, this project from J605b soft-lab, system open source - License MIT. All Authors are certified by our school!</h5>
+    	</div>
+  	</div>
+  </div>
+
+</div>
+</div>
+<script type="text/javascript">
+$(".page-number").click(function(){
+      var page = parseInt($(this).html());
+      var start = 0;
+
+      if(page > 1){
+          start = (page * 10) - 10 - 1;
+      }
+
+      location.href = "?s=" + start;
+});
+
+function deleteById(id){
+    var Confirm = confirm("Do you sure want to delete?");
+    if(!Confirm) return;
+    var formData = new FormData();
+    formData.append("id", id);
+
+    var request = new XMLHttpRequest();
+    request.open("POST", "/admin/article/delete");
+
+    request.onload = function(oEvent) {
+        if (request.status == 200) {
+            location.reload();
+        } else {
+            alert("Current server are not responsible!, please try later.");
+        }
+    };
+
+    request.send(formData);
+}
+
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+
+var keycodeObject = [];
+var nowNumber = 0;
+$(document).keydown(function(e){
+    console.log("key",e.keyCode);
+    keycodeObject.push(e.keyCode);
+    nowNumber++;
+    if(nowNumber==4){
+        if(keycodeObject.equals([65,83,68,70])){
+            location.href="?a=1";
+        }
+    }
+});
+console.log("Press A,S,D,F can let you enable super-admin mod.");
+</script>
+<script src="/javascripts/semantic.min.js"></script>
+</body>
+</html>
