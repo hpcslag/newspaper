@@ -535,7 +535,7 @@
           <p><%= art.preface %></p>
           <button class="compact ui button" onclick="location.href = '/article?id=<%= art._id %>';">繼續閱讀 >></button>
       </div>
-      <img src="<%= art.feature_picture %>" alt="">
+      <img src="<%= art.feature_picture %>" alt="" onerror="this.src='https://unsplash.it/860/640?random'" style=" width: 15em; /* 避免圖片溢位*/">
   </div>
 	
   <% } %>

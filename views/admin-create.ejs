@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="google" value="notranslate">
   <!-- Site Properties -->
-  <title><%= data.title %></title>
+  <title>Create Article</title>
   <!-- Include Font Awesome. -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
@@ -256,7 +256,7 @@
 <div class="pusher">
   
   <div class="ui container" style=" padding-top: 50px; word-break: break-all; ">
-    <h2 class="ui dividing header">管理員儀表板 - <%= webTitle %></h2>
+    <h2 class="ui dividing header">管理員儀表板 - newspaper</h2>
   </div>
 
   <div class="ui grid container" style="
@@ -282,13 +282,13 @@
     <div class="ui twelve wide column">
         <div class="ui large icon input" style="display: block;">
             <p >文章標題:</p>
-            <input type="text" id="title" style=" width: 20em; " value="<%= data.title %>" placeholder="請輸入文章標題...">
+            <input type="text" id="title" style=" width: 20em; "  placeholder="請輸入文章標題...">
         </div>
 
         <div class="ui form" style=" margin-top: 25px;">
             <div class="field">
                 <label>文章大綱 (不要太多字):</label>
-                <textarea id="preface"><%= data.preface %></textarea>
+                <textarea id="preface"></textarea>
             </div>
         </div>
         <div class="ui large icon input" style="display: block;">
@@ -301,20 +301,19 @@
             <!-- The example Code -->
             <div class="example-wrapper">
             <div class="tags well">
-                <label for="tag" class="control-label">文章標籤</label>
-                <div class="tagging-js blockquote-success" data-tags-input-name="taggone" id="tagBox"><% for(var i = 0; i<data.hash_tag.length;i++){ %><%= data.hash_tag[i] + ", " %><% }%></div>
+                <label for="tag" class="control-label">文章標籤 (利用空白鍵區分不同標籤):</label>
+                <div class="tagging-js blockquote-success" data-tags-input-name="taggone" id="tagBox"></div>
             </div>
             </div>
         </div>
 
         <div style=" padding-bottom: 30px; "><!-- 沒有修改不會怎樣 -->
-            <p>文章特色圖片 (不修改不會消失):</p>
+            <p>文章特色圖片:</p>
             <input type="file" name="upload" id="fileToUpload">
         </div>
 
         <p>文章內容: </p>
         <div id="froala-editor">
-            <%- data.content %>
         </div>
 
         <div style=" margin-top: 30px; ">
@@ -413,7 +412,7 @@
 
 
         $.ajax({
-            url: '/admin/article/update_article?id=<%= data._id %>',
+            url: '/admin/article/post_article',
             type: 'POST',
             processData: false, // important
             contentType: false, // important
@@ -422,10 +421,8 @@
         }).done(function(result) {
             if(result.status == 1){
                 location.href = "/admin/dashboard";
-            }else if (result.status == 2){
-                alert("請確認文章是否超過 30 字以上。");
-            }else {
-                alert("該文章`可能`已經不存在");
+            }else{
+                alert("請確定內文有超過 30 個字節以上。");
             }
         });;
 
