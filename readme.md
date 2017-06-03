@@ -39,7 +39,7 @@ npm start
 `localhost:3000/admin/dashboard` - Admin Dashboard(Press `ASDF` can let you be super admin).
 `localhost:3000/admin/setting` - Setup admin password
 
-# Setup Admin Account.
+# Setup Admin Account
 
 ### Create Admin User
 In global mod, you can use this command to create admin user:
