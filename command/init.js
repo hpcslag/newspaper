@@ -1,4 +1,6 @@
 var readline = require('readline');
+var fs = require('fs');
+var path = require('path');
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -28,8 +30,17 @@ rl.question('\n\nEnter Your Website Name: ', (title) => {
                 init.cookieSessionKey = key;
                 rl.question('\n\nEnter Your Website Port (1-65535): ', (port) => {
                     init.port = parseInt(port);
-                    console.log("\n\n\n --- Website Configuration Finish ---\n\n\nuse nwsp can starting server, or use nwsp help to see more usage.\n\n\n");
-                    process.exit();
+                    fs.truncate(path.join(__filename,'../../','configure.json') , 0, function() {
+                        fs.writeFile( path.join(__filename,'../../','configure.json') , JSON.stringify(init,null,4), function (err) {
+                            if (err) {
+                                return console.log("Error writing file: " + err);
+                            }else{
+                                console.log("\n\n\n --- Website Configuration Finish ---\n\n\nuse nwsp can starting server, or use nwsp help to see more usage.\n\n\n");
+                                process.exit();
+                            }
+                        });
+                    });
+                    
                 });
             });
         });

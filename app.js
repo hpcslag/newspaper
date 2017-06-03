@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(multer({
-    dest: 'public/uploads/',
+    dest: path.join(__dirname, 'public'),
     limits: {
         fieldNameSize: 50,
         files: 1,
