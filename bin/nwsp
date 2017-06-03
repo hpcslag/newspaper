@@ -9,11 +9,37 @@ var debug = require('debug')('newspaper:server');
 var http = require('http');
 
 /**
+ * If is command
+ */
+var command = process.argv.slice(2)[0];
+if(!!command){
+  switch(command){
+    case "createUser":
+      require("../command/createUser");
+    break;
+    case "deleteUser":
+      require("../command/deleteUser");
+    break;
+    case "listUser":
+      require("../command/listUser");
+    break;
+    case "help":
+      console.log("\n\n\n Enter Command: `nwsp createUser` or `node www createUser` \n\n 1. create user: `createUser` \n 2. listing users: `listUser` \n 3. delete user: `deleteUser` (also can delete all author).\n\n\n enter only `nwsp` will start normal server.");
+      process.exit();
+    break;
+  }
+}else{
+
+
+/**
  * Get port from environment and store in Express.
  */
+var configReader = require('../library/configReader');
+global.webConf = configReader();
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || global.webConf.port);
 app.set('port', port);
+console.log("The server start listen on http://localhost:" + port);
 
 /**
  * Create HTTP server.
@@ -87,4 +113,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+}
+
 }
