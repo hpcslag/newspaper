@@ -2,9 +2,11 @@
 	"title":"newspaper",
 	"mongodb": {
 		"requirePassword": false,
-		"host":"xx.xx.xxx.xxx:27017",
+		"host":"xxx.xxx.xxx.xxxx:27017",
 		"username":"",
 		"password":"",
 		"certificate":""
-	}
+	},
+	"cookieSessionKey":",fFps0!87*ldf;skfsal,v%2093msmd",
+	"port":3000
 }

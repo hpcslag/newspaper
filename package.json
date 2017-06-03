@@ -1,9 +1,12 @@
 {
   "name": "newspaper",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
+  "private": false,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/nwsp"
+  },
+  "bin":{
+    "nwsp":"./bin/nwsp"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -13,6 +16,25 @@
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
-    "serve-favicon": "~2.3.0"
-  }
+    "serve-favicon": "~2.3.0",
+    "bcrypt": "~1.0.2",
+    "cookie-session":"~2.0.0-beta.2",
+    "mongojs":"~2.4.0"
+  },
+  "description": "mongodb",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hpcslag/newspaper.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "hpcslag",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hpcslag/newspaper/issues"
+  },
+  "homepage": "https://github.com/hpcslag/newspaper#readme"
 }

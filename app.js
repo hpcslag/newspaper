@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var cookieSession = require("cookie-session");
 
 //init custom value
 var configReader = require('./library/configReader');
@@ -23,6 +24,10 @@ var users = require('./routes/users');
 var admin = require('./routes/admin');
 
 var app = express();
+
+//setup cookie session
+app.set('trust proxy', 1);
+app.use(cookieSession({keys: [global.webConf.cookieSessionKey]}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
