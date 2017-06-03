@@ -23,6 +23,9 @@ if(!!command){
     case "listUser":
       require("../command/listUser");
     break;
+    case "init":
+      require("../command/init");
+    break;
     case "help":
       console.log("\n\n\n Enter Command: `nwsp createUser` or `node www createUser` \n\n 1. create user: `createUser` \n 2. listing users: `listUser` \n 3. delete user: `deleteUser` (also can delete all author).\n\n\n enter only `nwsp` will start normal server.");
       process.exit();
