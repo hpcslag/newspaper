@@ -11,6 +11,11 @@ and you have to setup nwsp (follow the command line question):
 nwsp init
 ```
 
+All things done, you can typing just this command to starting the server:
+```
+nwsp
+```
+
 install in global(-g) meaning the `public` folder will install on the `-g` folder. (please take a note)
 
 # Require
